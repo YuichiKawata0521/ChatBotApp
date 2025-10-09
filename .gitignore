@@ -9,10 +9,10 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# 環境変数
-.env
-.env.local
-.env.*.local
+# # 環境変数
+# .env
+# .env.local
+# .env.*.local
 
 # ビルド成果物
 dist/
