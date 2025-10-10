@@ -13,6 +13,7 @@ services:
       - llm
     volumes:
       - ./frontend/public:/usr/share/nginx/html
+      - ./frontend/nginx/certs:/etc/nginx/certs
     environment:
       - HTTPS_ENABLED=${HTTPS_ENABLED}
     networks:
