@@ -126,12 +126,12 @@ graph LR
 
 | 関連機能No | 機能名     | 使用API                     | メソッド   | 入力データ例                                     | 出力データ例                            |
 | ------ | ------- | ------------------------- | ------ | ------------------------------------------ | --------------------------------- |
-| 1-1    | メッセージ送信 | `/api/conversations/{id}/messages`          | POST   | `{ "message": "こんにちは" }` | `{ "reply": "こんにちは！ご機嫌いかがですか？" }` |
-| 1-2    | 会話履歴取得  | `/api/conversations/{id}/messages`       | GET    | user_id                                    | 会話ログ（JSON配列）                      |
-| 1-3    | 会話履歴削除  | `/api/conversations/{id}` | PATCH | `{"show_history": false}`| `{"status": success}`  |
+| 1-1    | メッセージ送信 | `/api/v1/conversations/{id}/messages`          | POST   | `{ "message": "こんにちは" }` | `{ "reply": "こんにちは！ご機嫌いかがですか？" }` |
+| 1-2    | 会話履歴取得  | `/api/v1/conversations/{id}/messages`       | GET    | user_id                                    | 会話ログ（JSON配列）                      |
+| 1-3    | 会話履歴削除  | `/api/v1/conversations/{id}` | PATCH | `{"show_history": false}`| `{"status": success}`  |
 | 1-4    | エクスポート  | クライアント側処理                 | -      | -                                          | JSON/CSVファイル                      |
 | 1-4    | インポート   | クライアント側処理                 | -      | ファイルアップロード                                 | 履歴反映                              |
-| 1-5    | 新しい会話を始める   | `/api/conversations` | POST | | 新しい会話セッションを作成し、そのIDを返す　|
+| 1-5    | 新しい会話を始める   | `/api/v1/conversations` | POST | | 新しい会話セッションを作成し、そのIDを返す　|
 | 1-6    | 管理画面遷移   | クライアント処理 | - | - | 管理者ページログイン画面へ遷移|
 
 ---
@@ -150,9 +150,9 @@ graph LR
 
 | 機能No | 機能 | 使用API | メソッド | 入力データ例 | 出力データ例 |
 |---------|--------|-----------|-------------|----------------|----------------|
-| 2-1 | ログ一覧取得 | `/api/admin/logs` | GET | `{ "page": 1, "limit": 50 }` | ログ配列(JSON) |
-| 2-2 | エクスポート | `/api/admin/logs/export` | GET | `?format=csv` | CSV/JSONファイル |
-| 2-3 | 権限管理 | `/api/auth/role` | POST | `{"address": "example@test.com", "role": "admin"}` | `{"status": "success"}` |
+| 2-1 | ログ一覧取得 | `/api/v1/admin/logs` | GET | `{ "page": 1, "limit": 50 }` | ログ配列(JSON) |
+| 2-2 | エクスポート | `/api/v1/admin/logs/export` | GET | `?format=csv` | CSV/JSONファイル |
+| 2-3 | 権限管理 | `/api/v1/auth/role` | POST | `{"address": "example@test.com", "role": "admin"}` | `{"status": "success"}` |
 ---
 
 ### ログイン画面
@@ -170,7 +170,7 @@ graph LR
 
 | 機能No | 機能 | 使用API | メソッド | 入力データ例 | 出力データ例 |
 |---------|--------|-----------|-------------|----------------|----------------|
-| 3-1 | ログイン | `/api/auth/login` | POST | `{"address": "example@test.com", "password": "password"}` | `{"status": "success"}` |
+| 3-1 | ログイン | `/api/v1/auth/login` | POST | `{"address": "example@test.com", "password": "password"}` | `{"status": "success"}` |
 | 3-2 | 新規登録リンク | クライアント側処理 | - | - | 新規登録画面へ遷移 |
 ---
 
@@ -188,7 +188,7 @@ graph LR
 
 | 機能No | 機能 | 使用API | メソッド | 入力データ例 | 出力データ例 |
 |---------|--------|-----------|-------------|----------------|----------------|
-| 4-1 | 登録 | `/api/auth/register` | POST | `{"address": "example@test.com", "password": "password"}` | `{"status": "success"}` |
+| 4-1 | 登録 | `/api/v1/auth/register` | POST | `{"address": "example@test.com", "password": "password"}` | `{"status": "success"}` |
 ---
 
 
