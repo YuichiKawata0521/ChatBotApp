@@ -96,7 +96,7 @@ export const createApp = (pool) => {
 
     // /api/v1/以下のAPIルートにCSRF保護を適用
     // 各ルーター内部でエンドポイントに適用
-    app.use('/api/v1', indexRoutes(csrfProtection, loginLimitter));
+    app.use('/api/v1', indexRoutes(csrfProtection, loginLimitter)); // indexRoutesにcsrfProtectionとloginLimitterを渡す
 
   // --- エラーハンドリング ---
 
