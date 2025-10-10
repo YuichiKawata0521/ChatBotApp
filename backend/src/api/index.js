@@ -16,7 +16,7 @@ const createApiRouter = (csrfProtection, loginLimiter) => {
      * チャット関連
      * CSRF保護が必要なエンドポイントを持つため、csrfProtectionを渡す
      */
-    router.use('/conversation', conversationRoutes(csrfProtection));
+    router.use('/conversations', conversationRoutes(csrfProtection));
 
     /**
      * 管理者関連
