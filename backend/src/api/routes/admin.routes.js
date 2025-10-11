@@ -23,7 +23,7 @@ const createAdminRouter = (csrfProtection) => {
         '/logs/export',
         protect,
         authorizedRoles('admin'),
-        getLogs
+        exportLogs
     );
     
     return router;
