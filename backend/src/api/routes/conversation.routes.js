@@ -1,5 +1,6 @@
 import express from 'express';
 import { protect } from '../../middleware/auth.middleware';
+import { startNewConversation } from '../../controllers/conversation.controller.js';
 
 const createConversationRouter = (csrfProtection) => {
     const router = express.Router();
