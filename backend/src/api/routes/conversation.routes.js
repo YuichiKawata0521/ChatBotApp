@@ -1,6 +1,13 @@
 import express from 'express';
-import { protect } from '../../middleware/auth.middleware';
-import { startNewConversation } from '../../controllers/conversation.controller.js';
+import { protect } from '../../middleware/auth.middleware.js';
+import {
+    sendMessage,
+    getMessages,
+    hideConversationHistory,
+    startNewConversation,
+    getConversationList
+} from '../../controllers/conversation.controller.js';
+
 
 const createConversationRouter = (csrfProtection) => {
     const router = express.Router();
@@ -32,7 +39,7 @@ const createConversationRouter = (csrfProtection) => {
         '/:id',
         protect,
         csrfProtection,
-        deleteConversationHistory
+        hideConversationHistory
     );
 
     // 1-5 新しい会話を始める
@@ -42,6 +49,13 @@ const createConversationRouter = (csrfProtection) => {
         protect, // 認証必要
         csrfProtection, // CSRF保護
         startNewConversation
+    );
+
+    // 1-7 履歴タイトル一覧取得
+    router.get(
+        '/',
+        protect,
+        getConversationList
     );
 
     return router;
