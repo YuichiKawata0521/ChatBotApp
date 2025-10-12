@@ -71,7 +71,7 @@ export const hideConversationHistory = async (req, res, next) => {
     try {
         const { id: conversationId } = req.params;
         // DBのshow_historyをfalseに更新
-        const deleteHistory = await ConversationModel.patchShowHistory(conversationId);
+        const deleteHistory = await ConversationModel.updateShowHistory(conversationId);
         res.status(200).json({ success: true, message: '会話履歴を削除しました'});
     } catch (error) {
         console.error('deleteConversationHistoryでエラーが発生: ', error);
