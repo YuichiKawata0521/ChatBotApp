@@ -215,6 +215,8 @@ graph LR
 |conversations|title|VARCHAR(255)|NOT NULL|
 |conversations|created_at|TIMESTAMP|WITH TIME ZONE DEFAULT now()|
 |conversations|updated_at|TIMESTAMP|WITH TIME ZONE DEFAULT now()|
+|conversations|show_history|BOOL|NOT NULL DEFAULT 'true'|
+
 
 #### メッセージ管理テーブル
 | テーブル名 | カラム名 | 型 | 制約 |
@@ -225,7 +227,6 @@ graph LR
 |messages|content|TEXT|NOT NULL|
 |messages|model_name|VARCHAR(255)|NULL|
 |messages|sent_at|TIMESTAMP|WITH TIME ZONE DEFAULT now()|
-|messages|show_history|BOOL|NOT NULL DEFAULT 'true'|
 ---
 
 #### 管理ログ
@@ -314,3 +315,4 @@ graph LR
 |1.0.0|2025年10月8日 21時57分|河田祐一|初版作成|
 |1.0.1|2025年10月9日 22時00分|河田祐一|1.システム概要にポート番号追記|
 |1.0.2|2025年10月11日 20時45分|河田祐一|B-2-2/2-3権限管理のメソッドをPOSTからPATCHへ変更|
+|1.0.3|2025年10月12日 21時30分|河田祐一|会話管理テーブルにshow_historyを追加、メッセージ管理テーブルからshow_historyを削除|
