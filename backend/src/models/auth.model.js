@@ -16,6 +16,19 @@ export const updateRole = async (userId, role) => {
 };
 
 /**
+ * ログイン時のユーザー確認
+ */
+export const findUserPasswordByMailaddress = async (mailAddress) => {
+    const sql = `
+        SELECT *
+        FROM users
+        WHERE mailaddress = $1;
+    `;
+    const result = pool.query(sql, [mailAddress]);
+    return result.rows[0];
+}
+
+/**
  * 新規登録
  */
 export const insertNewUser = async (mailAddress, passwordHash, userName) => {

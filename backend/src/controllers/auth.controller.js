@@ -10,10 +10,10 @@ import argon2 from 'argon2';
 export const changeRole = async (req, res, next) => {
     try {
         // 必要な情報を取得
-        const { id: usreId } = req.session.user;
+        const { id: user } = req.session.user;
         const { role } = req.body;
 
-        await authModel.updateRole(usreId, role);
+        await authModel.updateRole(user, role);
         res.status(200).json({sucess: true, message: `権限を${role}へ変更しました。`});
     } catch (error) {
         console.error("changeRoleでエラーが発生しました: ", error);
@@ -29,7 +29,10 @@ export const userLogin = async (req, res, next) => {
     try {
         const { mailAddress, password } = req.body;
 
-        const user = await authModel.findUserPasswordByMailaddress(mailAddress, password);
+        const user = await authModel.findUserPasswordByMailaddress(mailAddress);
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'ユーザーが存在しません。'});
+        }
         if (user.password_hash !== null || user.password_hash !== '') {
             const match = await argon2.verify(user.password_hash, password);
             if (!match) {
