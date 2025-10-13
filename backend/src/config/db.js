@@ -27,7 +27,7 @@ export const checkDbConnection = async () => {
 
     // Poolからクライアントを取得して、疎通確認
     try {
-        const client = await pool.connect();
+        client = await pool.connect();
         await client.query('SELECT NOW()');
     } catch (error) {
         console.error('DB接続確認NG: ', error.message);
