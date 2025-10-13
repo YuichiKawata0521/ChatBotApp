@@ -1,5 +1,11 @@
 import express from 'express';
 import { protect, authorizedRoles } from '../../middleware/auth.middleware.js';
+import { validateRegistration, validateLogin } from '../../middleware/validation.middleware.js';
+import {
+    changeRole,
+    userLogin,
+    registerNewUser
+} from '../../controllers/auth.controller.js'
 
 const createAuthRouter = (csrfProtection, loginLimiter) => {
     const router = express.Router();
@@ -27,6 +33,7 @@ const createAuthRouter = (csrfProtection, loginLimiter) => {
     router.post(
         '/login',
         loginLimiter,
+        validateLogin,
         userLogin
     );
 
@@ -38,6 +45,7 @@ const createAuthRouter = (csrfProtection, loginLimiter) => {
     // POST /api/v1/auth/register
     router.post(
         '/register',
+        validateRegistration,
         registerNewUser
     );
 
