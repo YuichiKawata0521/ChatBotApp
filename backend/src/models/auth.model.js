@@ -24,7 +24,7 @@ export const findUserPasswordByMailaddress = async (mailAddress) => {
         FROM users
         WHERE mailaddress = $1;
     `;
-    const result = pool.query(sql, [mailAddress]);
+    const result = await pool.query(sql, [mailAddress]);
     return result.rows[0];
 }
 
