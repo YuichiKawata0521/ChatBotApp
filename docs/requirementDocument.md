@@ -211,7 +211,7 @@ graph LR
 #### 会話管理テーブル
 | テーブル名 | カラム名 | 型 | 制約 |
 |----------|----------|----------|----------|
-|conversations|id|BIGINT|PRIMARY KEY|
+|conversations|id|BIGSERIAL|PRIMARY KEY|
 |conversations|user_id|BIGINT|NOT NULL FOREIGN KEY (users.id)|
 |conversations|title|VARCHAR(255)|NOT NULL|
 |conversations|created_at|TIMESTAMP|WITH TIME ZONE DEFAULT now()|
@@ -222,7 +222,7 @@ graph LR
 #### メッセージ管理テーブル
 | テーブル名 | カラム名 | 型 | 制約 |
 |----------|----------|----------|----------|
-|messages|id|BIGINT|PRIMARY KEY|
+|messages|id|BIGSERIAL|PRIMARY KEY|
 |messages|conversation_id|BIGINT|NOT NULL FOREIGN KEY (conversations.id)|
 |messages|sender_type|VARCHAR(10)|NOT NULL|
 |messages|content|TEXT|NOT NULL|
@@ -233,7 +233,7 @@ graph LR
 #### 管理ログ
 | テーブル名 | カラム名 | 型 | 制約 |
 |----------|----------|----------|----------|
-|operation_logs|id|BIGINT|PRIMARY KEY|
+|operation_logs|id|BIGSERIAL|PRIMARY KEY|
 |operation_logs|user_id|BIGINT|NOT NULL FOREIGN KEY(users.id)|
 |operation_logs|action_type|VARCHAR(255)|NOT NULL|
 |operation_logs|details|TEXT|NOT NULL|
@@ -318,3 +318,4 @@ graph LR
 |1.0.2|2025年10月11日 20時45分|河田祐一|B-2-2/2-3権限管理のメソッドをPOSTからPATCHへ変更|
 |1.0.3|2025年10月12日 21時30分|河田祐一|会話管理テーブルにshow_historyを追加、メッセージ管理テーブルからshow_historyを削除|
 |1.0.4|2025年10月12日 22時22分|河田祐一|チャット画面に履歴タイトル一覧取得 `/api/v1/conversations`を追加|
+|1.0.5|2025年10月15日 22時23分|河田祐一|DBの各テーブルのidの型をBIGINTからBIGSERIALに変更|
