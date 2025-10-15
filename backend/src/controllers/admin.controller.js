@@ -10,7 +10,7 @@ export const getLogs = async (req, res, next) => {
         if (data.length === 0) {
             return res.status(404).json({success: false, message: 'データがありませんでした。'});
         }
-        return data.rows
+        return res.status(200).json({success: true, message: 'データ取得完了', data: data});
     } catch (error) {
         console.error('ログ取得中にエラーが発生しました: ', error);
         res.status(500).json({success: false, message: 'ログの取得に失敗しました'});
@@ -28,7 +28,9 @@ export const exportLogs = async (req, res, next) => {
             return res.status(404).json({success: false, message: 'データがありませんでした。'});
         }
 
-        const csvString = createCSVString(data);
+        const headers = ['ID', 'ユーザー', '会話ID', '送信者', '内容', '送信日時'];
+
+        const csvString = createCSVString(data, headers);
 
         const BOM = '\uFEFF';
         const csvWithBOM = BOM + csvString;

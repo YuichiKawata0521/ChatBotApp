@@ -1,5 +1,6 @@
 import express from 'express';
 import { protect, authorizedRoles } from '../../middleware/auth.middleware.js';
+import { getLogs, exportLogs } from '../../controllers/admin.controller.js';
 
 const createAdminRouter = (csrfProtection) => {
     const router = express.Router();
