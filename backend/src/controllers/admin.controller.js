@@ -6,7 +6,11 @@ import { createCSVString } from '../utils/createCsvString.js';
  */
 export const getLogs = async (req, res, next) => {
     try {
-        const data = await AdminModel.selectAllData();
+        const page = parseInt(req.query.page || '1', 10);
+        const limit = parseInt(req.query.limit || '50', 10);
+        const offset = (page - 1) * limit;
+
+        const data = await AdminModel.selectDataWithLimit(limit, offset);
         if (data.length === 0) {
             return res.status(404).json({success: false, message: 'データがありませんでした。'});
         }
