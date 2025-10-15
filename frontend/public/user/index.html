@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>Chatbot App</h1>
+            <div class="header-nav">
+                <a href="/admin">管理画面</a>
+                <a href="/logout">ログアウト</a>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <nav class="sidebar">
+                <button class="new-chat-btn">＋ 新しい会話</button>
+                <ul class="conversation-history">
+                    <li class="active">今日の天気について</li>
+                    <li>週末の予定</li>
+                    <li>レシピの質問</li>
+                    <li>旅行プランの相談</li>
+                    <li>プログラミングのヘルプ</li>
+                    <li>映画のおすすめ</li>
+                    <li>健康に関する質問</li>
+                </ul>
+                <div class="sidebar-footer">
+                    <button>インポート</button>
+                    <button>エクスポート</button>
+                    <button>履歴クリア</button>
+                </div>
+            </nav>
+
+            <section class="chat-panel">
+                <div class="chat-messages">
+                    <div class="message bot">
+                        <div class="message-bubble">
+                            <p>こんにちは！何かお手伝いできることはありますか？</p>
+                        </div>
+                    </div>
+                    <div class="message user">
+                        <div class="message-bubble">
+                            <p>今日の天気について教えてください。</p>
+                        </div>
+                    </div>
+                    <div class="message bot">
+                        <div class="message-bubble">
+                            <p>申し訳ございませんが、リアルタイムの天気情報を取得する機能は現在持っていません。天気予報については、気象庁のウェブサイトや天気予報アプリをご利用ください。</p>
+                        </div>
+                    </div>
+                     <div class="message user">
+                        <div class="message-bubble">
+                            <p>わかりました。ありがとうございます。</p>
+                        </div>
+                    </div>
+                    <div class="message bot">
+                        <div class="message-bubble loading">
+                            <span>...</span>
+                            <button class="stop-btn">中止</button>
+                        </div>
+                    </div>
+                </div>
+                <footer class="chat-footer">
+                    <div class="input-container">
+                        <input type="text" placeholder="メッセージを入力...">
+                        <button class="send-btn">
+                            送信
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.01 21L23 12L2.01 3L2 10L17 12L2 14L2.01 21Z" fill="white"/></svg>
+                        </button>
+                    </div>
+                </footer>
+            </section>
+        </main>
+
+        <div class="help-icon">?</div>
+    </div>
+</body>
+</html>
