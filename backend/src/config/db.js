@@ -5,10 +5,10 @@ import { Pool } from "pg";
  * @returns {object} SQL接続設定オブジェクト
  */
 const poolConfig ={
-    user: process.env.PG_USER,
-    host: process.env.PG_HOST || 'db',
-    database: process.env.PG_DB,
-    password: process.env.PG_PASSWORD,
+    user: process.env.POSTGRES_USER,
+    host: process.env.POSTGRES_HOST || 'db',
+    database: process.env.POSTGRES_DB,
+    password: process.env.POSTGRES_PASSWORD,
     port: parseInt(process.env.DB_PORT || '5432', 10),
     max: 20,
     idleTimeoutMillis: 30000,
