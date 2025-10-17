@@ -58,6 +58,7 @@ export const userLogin = async (req, res, next) => {
                     }
 
                     res.status(200).json({
+                        success: true,
                         message: 'ログインに成功しました。',
                         user: {
                             id: user.id,
