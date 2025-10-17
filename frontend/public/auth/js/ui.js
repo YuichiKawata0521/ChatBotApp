@@ -50,7 +50,7 @@ export function getRegisterFrom() {
  */
 export function getRegisterData() {
     // ユーザー名を取得してサニタイズ
-    const username = sanitizeText(document.getElementById('usrname').value);
+    const username = sanitizeText(document.getElementById('username').value);
     // メールアドレスを取得してサニタイズ
     const email = sanitizeText(document.getElementById('email').value);
     // パスワードを取得してサニタイズ
