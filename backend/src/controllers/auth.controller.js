@@ -91,7 +91,7 @@ export const registerNewUser = async (req, res, next) => {
         });
 
         const result = await authModel.insertNewUser(mailAddress, passwordHash, userName);
-        res.status(200).json({ sucess: true, message: '登録完了'});
+        res.status(200).json({ success: true, message: '登録完了'});
     } catch (error) {
         console.error('registerNewUserでエラーが発生: ', error);
         next(error);
