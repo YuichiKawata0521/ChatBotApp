@@ -14,7 +14,7 @@ export const sendMessage = async (req, res, next) => {
 
         // ユーザーメッセージをmessagesテーブルに保存
         await ConversationModel.createMessage({
-            conversation_id: conversationId,
+            conversationId: conversationId,
             senderType: 'user',
             content: message,
         });
@@ -33,7 +33,7 @@ export const sendMessage = async (req, res, next) => {
 
         // LLMの返信をDBに保存
         await ConversationModel.createMessage({
-            conversation_id: conversationId,
+            conversationId: conversationId,
             senderType: 'bot',
             content: botReply,
             model_name: modelName,
