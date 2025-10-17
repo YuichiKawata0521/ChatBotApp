@@ -40,9 +40,9 @@ export async function registerUserData(username, email, password) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                userName: username,
-                emailAddress: email,
-                password: password
+                'userName': username,
+                'mailAddress': email,
+                'password': password
             }),
         });
         return await response.json();
