@@ -85,6 +85,5 @@ export const findVisibleConversationsByUserId = async (userId) => {
         ORDER BY updated_at DESC;
     `;
     const result = await pool.query(sql, [userId]);
-    client.release();
     return result.rows
 }
