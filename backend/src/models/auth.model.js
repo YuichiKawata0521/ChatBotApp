@@ -11,7 +11,7 @@ export const updateRole = async (userId, role) => {
         SET role = $1
         WHERE id = $2;
     `;
-    const result = await pool.query(sql, [userId, role]);
+    const result = await pool.query(sql, [role, userId]);
     return result.rows[0];
 };
 
