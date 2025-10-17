@@ -81,7 +81,7 @@ export const userLogin = async (req, res, next) => {
 
 export const registerNewUser = async (req, res, next) => {
     try {
-        const { mailAddress, password, userName } = req.body;
+        const { userName, mailAddress, password } = req.body;
 
         const passwordHash = await argon2.hash(password, {
             type: argon2.argon2id,
