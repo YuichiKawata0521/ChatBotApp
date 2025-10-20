@@ -108,12 +108,13 @@ body, html {
 
 .sidebar-footer {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     padding-top: 1rem;
     border-top: 1px solid var(--border-color);
 }
 
 .sidebar-footer button {
+    flex: 1;
     background: none;
     border: 1px solid #aaa;
     padding: 0.5rem 0.75rem;
