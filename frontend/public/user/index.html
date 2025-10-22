@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot App</title>
     <link rel="stylesheet" href="/assets/css/user.css">
+    <link rel="stylesheet" href="/assets/css/base.css">
 </head>
 <body>
     <div class="app-container">
@@ -18,7 +19,7 @@
 
         <main class="main-content">
             <nav class="sidebar">
-                <button class="new-chat-btn">＋ 新しい会話</button>
+                <button class="new-chat-btn" id="newChatBtn">＋ 新しい会話</button>
                 <ul class="conversation-history">
                     <li class="active">今日の天気について</li>
                     <li>週末の予定</li>
@@ -29,15 +30,25 @@
                     <li>健康に関する質問</li>
                 </ul>
                 <div class="sidebar-footer">
-                    <button>インポート</button>
-                    <button>エクスポート</button>
-                    <button>履歴クリア</button>
+                    <button>イン<br>ポート</button>
+                    <button>エクス<br>ポート</button>
+                    <button>履歴<br>クリア</button>
                 </div>
             </nav>
 
             <section class="chat-panel">
                 <div class="chat-messages">
-                    <div class="message bot">
+                    <div class="welcome-message-container" id="welcomeMessageContainer">
+                        <div class="logo-container" id="logoContainer">
+                            <img src="../icons/logo.svg" alt="Chatbot App Logo" class="welcome-logo">
+                        </div>
+                        <div class="welcome-text" id="welcomeText">
+                            <h1>ようこそ Chatbot Appへ！</h1>
+                            <p>メッセージを入力して会話を始めましょう！</p>
+                        </div>
+                    </div>
+
+                    <!-- <div class="message bot">
                         <div class="message-bubble">
                             <p>こんにちは！何かお手伝いできることはありますか？</p>
                         </div>
@@ -62,11 +73,11 @@
                             <span>...</span>
                             <button class="stop-btn">中止</button>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <footer class="chat-footer">
                     <div class="input-container">
-                        <input type="text" placeholder="メッセージを入力...">
+                        <input type="text" id="inputMessage" placeholder="メッセージを入力...">
                         <button class="send-btn">
                             送信
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.01 21L23 12L2.01 3L2 10L17 12L2 14L2.01 21Z" fill="white"/></svg>
@@ -76,7 +87,7 @@
             </section>
         </main>
 
-        <div class="help-icon">?</div>
     </div>
+    <script type="module" src="/user/js/main.js"></script>
 </body>
 </html>
