@@ -130,6 +130,7 @@ body, html {
     flex-direction: column;
     flex-grow: 1;
     background-color: var(--main-bg);
+    position: relative; /* For positioning children if needed */
 }
 
 .chat-messages {
@@ -139,6 +140,51 @@ body, html {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    /* Initially, center the welcome message */
+    justify-content: center;
+    align-items: center;
+}
+
+/* When chat starts, align messages to the top */
+.chat-panel.chat-started .chat-messages {
+    justify-content: flex-start;
+}
+
+.welcome-message-container {
+    display: flex;
+    /* Align items horizontally */
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem; /* Space between logo and text */
+    color: #333;
+}
+
+/* Hide welcome message when chat starts */
+.chat-panel.chat-started .welcome-message-container {
+    display: none;
+}
+
+.logo-container {
+    flex-shrink: 0; /* Prevent logo from shrinking */
+}
+
+.welcome-logo {
+    width: 150px; /* Adjust size as needed */
+    height: auto;
+}
+
+.welcome-text {
+    text-align: center;
+}
+
+.welcome-text h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.welcome-text p {
+    font-size: 1rem;
+    color: #666;
 }
 
 .message {
