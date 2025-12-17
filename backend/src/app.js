@@ -9,6 +9,7 @@ import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 
 import indexRoutes from './api/index.js';
+import pageRoutes from './api/routes/pages.routes.js';
 
 
 // --- appを生成するファクトリ関数---
@@ -93,6 +94,8 @@ export const createApp = (pool) => {
     app.get('/api/v1/csrf-token', csrfProtection, (req, res) => {
         res.json({ csrfToken: req.csrfToken() });
     });
+
+    app.use('/', pageRoutes);
 
     // /api/v1/以下のAPIルートにCSRF保護を適用
     // 各ルーター内部でエンドポイントに適用
