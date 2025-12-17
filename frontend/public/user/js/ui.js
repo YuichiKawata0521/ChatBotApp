@@ -1,3 +1,25 @@
+import { state as configState } from './config.js';
+
+export function applyFrontText() {
+    const text = configState.frontText;
+    if (!text) return;
+
+    document.querySelectorAll("[data-text]").forEach(el => {
+        const key = el.dataset.text;
+        if (text[key] !== undefined) {
+            el.textContent = text[key];
+        }
+    });
+
+    document.querySelectorAll("[data-placeholder]").forEach(el => {
+        const key = el.dataset.placeholder;
+        if (text[key] !== undefined) {
+            el.placeholder = text[key];
+        }
+    });
+}
+
+
 /**
  * 新しい会話 ボタンを押した際の処理
  */
