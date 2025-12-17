@@ -1,5 +1,10 @@
 import * as ui from './ui.js';
 import * as api from './api.js';
+import { state as configState } from './config.js';
+
+async function getTexts() {
+    configState.frontText = await api.getFrontText();
+}
 
 // 新しい会話ボタンを押した際の処理
 function startNewChat() {
@@ -17,6 +22,8 @@ function startNewChatListner() {
 }
 
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    await getTexts(); // フロント文字列の取得
+    await ui.applyFrontText(); // 取得した文字列をhtmlに適用
     startNewChatListner(); // 新しい会話ボタンのイベント
 })
