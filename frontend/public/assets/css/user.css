@@ -108,16 +108,18 @@ body, html {
 
 .sidebar-footer {
     display: flex;
+    gap: 1px;
+    flex-direction: column;
     justify-content: space-evenly;
     padding-top: 1rem;
     border-top: 1px solid var(--border-color);
 }
 
 .sidebar-footer button {
-    flex: 1;
+    width: 90%;
     background: none;
     border: 1px solid #aaa;
-    padding: 0.5rem 0.75rem;
+    padding: 3px 0;
     border-radius: 5px;
     cursor: pointer;
     font-size: 0.85rem;
