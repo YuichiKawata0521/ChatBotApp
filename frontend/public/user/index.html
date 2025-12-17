@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot App</title>
+    <title data-text="appName"></title>
     <link rel="stylesheet" href="/assets/css/user.css">
     <link rel="stylesheet" href="/assets/css/base.css">
 </head>
 <body>
     <div class="app-container">
         <header class="app-header">
-            <h1>Chatbot App</h1>
+            <h1 data-text="appName"></h1>
             <div class="header-nav">
-                <a href="../admin/index.html">管理画面</a>
-                <a href="/logout">ログアウト</a>
+                <a href="../admin/index.html" data-text="adminPage"></a>
+                <a href="/logout" data-text="logout"></a>
             </div>
         </header>
 
         <main class="main-content">
             <nav class="sidebar">
-                <button class="new-chat-btn" id="newChatBtn">＋ 新しい会話</button>
+                <button class="new-chat-btn" id="newChatBtn" data-text="newChat"></button>
                 <ul class="conversation-history">
                     <li class="active">今日の天気について</li>
                     <li>週末の予定</li>
@@ -30,9 +30,8 @@
                     <li>健康に関する質問</li>
                 </ul>
                 <div class="sidebar-footer">
-                    <button>イン<br>ポート</button>
-                    <button>エクス<br>ポート</button>
-                    <button>履歴<br>クリア</button>
+                    <button data-text="clearAll"></button>
+                    <button data-text="setting"></button>
                 </div>
             </nav>
 
@@ -43,8 +42,8 @@
                             <img src="../icons/logo.svg" alt="Chatbot App Logo" class="welcome-logo">
                         </div>
                         <div class="welcome-text" id="welcomeText">
-                            <h1>ようこそ Chatbot Appへ！</h1>
-                            <p>メッセージを入力して会話を始めましょう！</p>
+                            <h1 data-text="welcome"></h1>
+                            <p data-text="subWelcome"></p>
                         </div>
                     </div>
 
@@ -77,11 +76,8 @@
                 </div>
                 <footer class="chat-footer">
                     <div class="input-container">
-                        <input type="text" id="inputMessage" placeholder="メッセージを入力...">
-                        <button class="send-btn">
-                            送信
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.01 21L23 12L2.01 3L2 10L17 12L2 14L2.01 21Z" fill="white"/></svg>
-                        </button>
+                        <input type="text" id="inputMessage" data-placeholder="input">
+                        <button class="send-btn" data-text="send"></button>
                     </div>
                 </footer>
             </section>
