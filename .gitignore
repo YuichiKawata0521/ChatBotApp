@@ -61,3 +61,6 @@ htmlcov/
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
+
+gpt2
+*.png
