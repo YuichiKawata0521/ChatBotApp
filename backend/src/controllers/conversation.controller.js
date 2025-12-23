@@ -19,17 +19,30 @@ export const sendMessage = async (req, res, next) => {
             content: message,
         });
 
-        // LLMに渡すための会話履歴をDBから取得
-        const history = await ConversationModel.getMessagesByConversationId(conversationId);
+        // LLMに渡すための会話履歴最新5件をDBから取得
+        const history = await ConversationModel.getMessagesByConversationId(conversationId, 5);
+        
+        // LLMに渡すプロンプトを構築
+        let contextText = "";
+        if (history.length > 1) {
+            contextText = "過去の会話履歴:\n";
+            history.slice(0, -1).forEach(msg => {
+                const role = msg.sender_type === 'user' ? 'user' : 'bot';
+                contextText += `${role}: ${msg.content}\n`;
+            });
+            contextText += "\n";
+        }
+
+        const fullPrompt = `${contextText}現在の質問に対して簡潔に答えてください。\n質問: ${message}`;
+
 
         // 自作LLMにリクエストを送信
-        const llmResponse = await axios.post('http://llm:5000/predict', {
-            message: message,
-            history: history
+        const llmResponse = await axios.post('http://llm:5000/generate', {
+            text: fullPrompt
         });
 
-        const botReply = llmResponse.data.reply; // // 仮のデータ構造
-        const modelName = llmResponse.data.model_name;
+        const botReply = llmResponse.data.response; // // 仮のデータ構造
+        const modelName = 'Custom-GPT2-355M-ja';
 
         // LLMの返信をDBに保存
         await ConversationModel.createMessage({
@@ -43,6 +56,9 @@ export const sendMessage = async (req, res, next) => {
         res.status(201).json({ success: true, reply: botReply });
     } catch (error) {
         console.error('sendMessageでエラーが発生: ', error);
+        if (error.code === 'ECONNREFUSED') {
+            return res.status(503).json({success: false, reply: "AIサービスが一時的に停止しています"});
+        }
         next(error);
     }
 };

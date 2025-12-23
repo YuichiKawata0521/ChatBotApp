@@ -43,14 +43,19 @@ export const createMessage = async (messageData) => {
  * @param {number} conversationId
  * @returns {Promise<Array>} メッセージの配列
  */
-export const getMessagesByConversationId = async (conversationId) => {
+export const getMessagesByConversationId = async (conversationId, limit = 5) => {
     const sql = `
         SELECT sender_type, content
-        FROM messages
-        WHERE conversation_id = $1
+        FROM (
+            SELECT sender_type, content, sent_at
+            FROM messages
+            WHERE conversation_id = $1
+            ORDER BY sent_at DESC
+            LIMIT $2
+        ) AS recent_messages
         ORDER BY sent_at ASC;
     `;
-    const result = await pool.query(sql, [conversationId]);
+    const result = await pool.query(sql, [conversationId, limit]);
     return result.rows;
 };
 
