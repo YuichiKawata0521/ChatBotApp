@@ -1,9 +1,61 @@
 import torch
+from fastapi import FastAPI
+from pydantic import BaseModel
+import os
 import numpy as np
 from model.tokenizer import Tokenizer
 from model.transformer import GPTModel
 from model.config import GPT_CONFIG_124M, GPT_CONFIG_355M
 from model.gpt_download import download_and_load_gpt2
+
+app = FastAPI()
+
+# モデルの準備
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+tokenizer = Tokenizer()
+cfg = GPT_CONFIG_355M
+cfg["qkv_bias"] = True
+
+model = GPTModel(cfg)
+
+# 重みをロード
+weights_path = "app/model/gpt2_355M_ja_finetuned.pth"
+if os.path.exists(weights_path):
+    model.load_state_dict(torch.load(weights_path, map_location=device))
+    print(f"Loaded weights from {weights_path}")
+else:
+    print("Warning: Weights not found. Using initialized weights.")
+
+model.to(device)
+model.eval()
+
+class Query(BaseModel):
+    text: str
+
+@app.post("/generate")
+async def generate(query: Query):
+    # プロンプトの整形
+    prompt = f"### 指示:\n{query.text}\n### 回答:\n"
+
+    input_ids = tokenizer.encode(prompt).to(device)
+
+    with torch.no_grad():
+        output_ids = generate_text_simple(
+            model=model,
+            idx=input_ids,
+            max_new_tokens=100,
+            context_size=cfg["context_length"],
+            temperature=0.2,
+            top_k=50,
+            eos_id=50256
+        )
+    
+    full_text = tokenizer.decode(output_ids)
+    # 回答部分だけ抽出
+    answer = full_text.split("### 回答:\n")[-1].replace("<|endoftext|>", "").strip()
+
+    return {"response": answer}
+
 
 @torch.no_grad()
 def generate_text_simple(model, idx, max_new_tokens, context_size, temperature=0.0, top_k=None, eos_id=None):
@@ -71,58 +123,3 @@ def load_weights_into_gpt(gpt, params):
     gpt.final_norm.scale = assign(gpt.final_norm.scale, params["g"])
     gpt.final_norm.shift = assign(gpt.final_norm.shift, params["b"])
     gpt.out_head.weight = assign(gpt.out_head.weight, params["wte"])
-
-def main():
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"Using device: {device}")
-
-    # 1. 355Mモデルの重みを読み込み
-    # すでにディレクトリがある場合でも、この関数を呼ぶことで params を取得できます
-    print("Loading 355M weights...")
-    # models_dirは main.py から見た 'gpt2' ディレクトリの場所
-    _, params = download_and_load_gpt2(model_size="355M", models_dir="gpt2")
-
-    # 2. トークナイザとモデルの準備
-    tokenizer = Tokenizer()
-    
-    # OpenAI仕様に合わせて設定を微調整 (qkv_bias=True)
-    cfg = GPT_CONFIG_355M
-    cfg["qkv_bias"] = True 
-    
-    model = GPTModel(cfg)
-    
-    # 3. 重みの流し込み
-    load_weights_into_gpt(model, params)
-    model.to(device)
-    model.eval()
-
-    print("\n--- 自作GPTモデル (GPT-2 355M 相当) 起動中 ---")
-    print("'exit' と入力すると終了します。")
-
-    while True:
-        user_input = input("\nUser > ")
-        if user_input.lower() == "exit":
-            break
-
-        if not user_input.strip():
-            continue
-
-        input_ids = tokenizer.encode(user_input).to(device)
-        
-        # 生成
-        # context_size も 355M 用のものを使用
-        output_ids = generate_text_simple(
-            model, 
-            input_ids, 
-            max_new_tokens=25, 
-            context_size=cfg["context_length"],
-            temperature=0.7, 
-            top_k=50,
-            eos_id=50256
-        )
-        
-        response = tokenizer.decode(output_ids)
-        print(f"GPT  > {response}")
-
-if __name__ == "__main__":
-    main()
