@@ -1,2 +1,5 @@
+fastapi
+uvicorn
 tiktoken
 tqdm
+requests
