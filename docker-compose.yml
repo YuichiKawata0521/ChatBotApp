@@ -10,7 +10,7 @@ services:
       - "${HTTPS_PORT:-443}:443" # HTTPS通信用にマッピング
     depends_on:
       - backend # backendが起動してからfrontend起動
-      - llm
+      # - llm
     volumes:
       - ./frontend/public:/usr/share/nginx/html
       - ./frontend/nginx/certs:/etc/nginx/certs
@@ -29,6 +29,7 @@ services:
     volumes:
       - ./backend:/app/
       - /app/node_modules
+      - ./frontend/public:/app/public
     env_file:
       - ./.env
     # ports:
@@ -49,8 +50,13 @@ services:
       - ./llm:/app
     env_file:
       - ./.env
-    # ports:
-    #   - "${LLM_PORT:-5000}:5000"
+    environment:
+      - PYHONPATH=/app/app
+    command: python /app/app/main.py
+    tty: true # 仮想端末を割り当て
+    stdin_open: true # 標準入力を開いたままにする
+    ports:
+      - "${LLM_PORT:-5000}:5000"
     networks:
       - chatbot_network
   
