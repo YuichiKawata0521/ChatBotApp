@@ -64,3 +64,4 @@ htmlcov/
 
 gpt2
 *.png
+*.pth
