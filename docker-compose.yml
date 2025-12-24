@@ -10,7 +10,7 @@ services:
       - "${HTTPS_PORT:-443}:443" # HTTPS通信用にマッピング
     depends_on:
       - backend # backendが起動してからfrontend起動
-      # - llm
+      - llm
     volumes:
       - ./frontend/public:/usr/share/nginx/html
       - ./frontend/nginx/certs:/etc/nginx/certs
