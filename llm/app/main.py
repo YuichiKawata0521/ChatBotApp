@@ -32,12 +32,13 @@ model.eval()
 class Query(BaseModel):
     text: str
 
-@app.post("/generate")
+@app.post("/api/v1/generate")
 async def generate(query: Query):
     # プロンプトの整形
     prompt = f"### 指示:\n{query.text}\n### 回答:\n"
 
     input_ids = tokenizer.encode(prompt).to(device)
+    input_len = input_ids.shape[1]
 
     with torch.no_grad():
         output_ids = generate_text_simple(
@@ -49,10 +50,11 @@ async def generate(query: Query):
             top_k=50,
             eos_id=50256
         )
-    
-    full_text = tokenizer.decode(output_ids)
-    # 回答部分だけ抽出
-    answer = full_text.split("### 回答:\n")[-1].replace("<|endoftext|>", "").strip()
+    # 回答部分の切り出し
+    generated_ids = output_ids[0, input_len:]
+    answer = tokenizer.decode(generated_ids)
+
+    answer = answer.replace("<|endoftext|>", "").strip()
 
     return {"response": answer}
 
