@@ -1,0 +1,13 @@
+{
+    "appName": "Chatbot App",
+    "adminPage": "管理画面",
+    "logout": "ログアウト",
+    "newChat": "＋ 新しい会話",
+    "clearAll": "すべての会話履歴を削除",
+    "setting": "設定",
+    "welcome": "ようこそ Chatbot Appへ！",
+    "subWelcome": "メッセージを入力して会話を始めましょう！",
+    "input": "メッセージを入力...",
+    "send": "送信"
+
+}

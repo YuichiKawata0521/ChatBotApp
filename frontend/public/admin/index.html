@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理画面 - Chatbot App</title>
+    <link rel="stylesheet" href="/assets/css/base.css">
+    <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+    <header class="app-header">
+        <h1><a href="/">Chatbot App</a></h1>
+        <div class="header-nav">
+            <a href="../user/index.html">チャット画面へ</a>
+            <a href="/logout">ログアウト</a>
+        </div>
+    </header>
+    <main class="main-container">
+        <div class="admin-header">
+            <h2>システムログ</h2>
+            <button class="export-btn">CSVエクスポート</button>
+        </div>
+        <div class="log-table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>ユーザー</th>
+                        <th>操作種別</th>
+                        <th>詳細</th>
+                        <th>日時</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>101</td>
+                        <td>admin_user</td>
+                        <td>LOGIN</td>
+                        <td>ログインに成功しました。</td>
+                        <td>2025-10-15 22:30:05</td>
+                    </tr>
+                    <tr>
+                        <td>102</td>
+                        <td>test_user</td>
+                        <td>MESSAGE</td>
+                        <td>新しいメッセージを送信しました。</td>
+                        <td>2025-10-15 22:32:10</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,35 @@
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: calc(100vh - 60px - 4rem); /* Full height minus header and padding */
+}
+
+.error-box h1 {
+    font-size: 6rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.error-box p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.home-link {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.home-link:hover {
+    background-color: #2a4848;
+}

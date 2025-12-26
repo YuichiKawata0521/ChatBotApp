@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-text="appName"></title>
+    <link rel="stylesheet" href="/assets/css/user.css">
+    <link rel="stylesheet" href="/assets/css/base.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1 data-text="appName"></h1>
+            <div class="header-nav">
+                <a href="../admin/index.html" data-text="adminPage"></a>
+                <a href="/logout" data-text="logout"></a>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <nav class="sidebar">
+                <button class="new-chat-btn" id="newChatBtn" data-text="newChat"></button>
+                <ul class="conversation-history">
+                    <li class="active">今日の天気について</li>
+                    <li>週末の予定</li>
+                    <li>レシピの質問</li>
+                    <li>旅行プランの相談</li>
+                    <li>プログラミングのヘルプ</li>
+                    <li>映画のおすすめ</li>
+                    <li>健康に関する質問</li>
+                </ul>
+                <div class="sidebar-footer">
+                    <button data-text="clearAll"></button>
+                    <button data-text="setting"></button>
+                </div>
+            </nav>
+
+            <section class="chat-panel">
+                <div class="chat-messages">
+                    <div class="welcome-message-container" id="welcomeMessageContainer">
+                        <div class="logo-container" id="logoContainer">
+                            <img src="../icons/logo.svg" alt="Chatbot App Logo" class="welcome-logo">
+                        </div>
+                        <div class="welcome-text" id="welcomeText">
+                            <h1 data-text="welcome"></h1>
+                            <p data-text="subWelcome"></p>
+                        </div>
+                    </div>
+
+                    <!-- <div class="message bot">
+                        <div class="message-bubble">
+                            <p>こんにちは！何かお手伝いできることはありますか？</p>
+                        </div>
+                    </div>
+                    <div class="message user">
+                        <div class="message-bubble">
+                            <p>今日の天気について教えてください。</p>
+                        </div>
+                    </div>
+                    <div class="message bot">
+                        <div class="message-bubble">
+                            <p>申し訳ございませんが、リアルタイムの天気情報を取得する機能は現在持っていません。天気予報については、気象庁のウェブサイトや天気予報アプリをご利用ください。</p>
+                        </div>
+                    </div>
+                     <div class="message user">
+                        <div class="message-bubble">
+                            <p>わかりました。ありがとうございます。</p>
+                        </div>
+                    </div>
+                    <div class="message bot">
+                        <div class="message-bubble loading">
+                            <span>...</span>
+                            <button class="stop-btn">中止</button>
+                        </div>
+                    </div> -->
+                </div>
+                <footer class="chat-footer">
+                    <div class="input-container">
+                        <input type="text" id="inputMessage" data-placeholder="input">
+                        <button class="send-btn" data-text="send"></button>
+                    </div>
+                </footer>
+            </section>
+        </main>
+
+    </div>
+    <script type="module" src="/user/js/main.js"></script>
+</body>
+</html>
