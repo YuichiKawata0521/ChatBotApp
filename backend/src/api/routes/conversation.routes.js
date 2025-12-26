@@ -1,5 +1,5 @@
 import express from 'express';
-import { protect } from '../../middleware/auth.middleware.js';
+import { protect, checkConversationOwnership } from '../../middleware/auth.middleware.js';
 import {
     sendMessage,
     getMessages,
@@ -21,6 +21,7 @@ const createConversationRouter = (csrfProtection) => {
     router.post(
         '/:id/messages',
         protect,
+        checkConversationOwnership,
         csrfProtection,
         sendMessage
     );
@@ -30,6 +31,7 @@ const createConversationRouter = (csrfProtection) => {
     router.get(
         '/:id/messages',
         protect,
+        checkConversationOwnership,
         getMessages
     );
 
@@ -38,6 +40,7 @@ const createConversationRouter = (csrfProtection) => {
     router.patch(
         '/:id',
         protect,
+        checkConversationOwnership,
         csrfProtection,
         hideConversationHistory
     );
