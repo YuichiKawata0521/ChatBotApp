@@ -1,3 +1,5 @@
+import * as ConversationModel from '../models/conversation.model.js';
+
 /**
  * カスタムエラーオブジェクト
  */
@@ -42,4 +44,27 @@ export const authorizedRoles = (...roles) => { // (...roles) とすることで�
         // 認証済みかつ適切なロール
         next();
     };
+};
+
+/**
+ * 会話の所有権を確認するミドルウェア
+ */
+export const checkConversationOwnership = async (req, res, next) => {
+    try {
+        const { id: conversationId } = req.params;
+        const userId = req.session.user.id;
+
+        // DBから会話情報を取得
+        const conversation = await ConversationModel.findById(conversationId);
+        if (!conversationId) {
+            return next(new AppError('指定された会話が見つかりません', 404));
+        }
+
+        if (conversation.user_id != userId) {
+            return next(new AppError('この会話にアクセスする権限がありません', 403));
+        }
+        next();
+     } catch (error) {
+        next(error);
+     }
 };
