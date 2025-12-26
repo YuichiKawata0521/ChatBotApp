@@ -1,0 +1,82 @@
+services:
+  # 1. Nginx
+  frontend:
+    restart: always # コンテナが停止した場合、常に再起動させる
+    build:
+      context: ./frontend # Dockerfileを探す場所
+      dockerfile: Dockerfile
+    ports:
+      - "${FRONTEND_PORT:-80}:80" # host:FRONTEND_PORT / Container:80をマッピング
+      - "${HTTPS_PORT:-443}:443" # HTTPS通信用にマッピング
+    depends_on:
+      - backend # backendが起動してからfrontend起動
+      - llm
+    volumes:
+      - ./frontend/public:/usr/share/nginx/html
+      - ./frontend/nginx/certs:/etc/nginx/certs
+    environment:
+      - HTTPS_ENABLED=${HTTPS_ENABLED}
+    networks:
+      - chatbot_network
+  
+  # 2. Node.js
+  backend:
+    restart: always
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    working_dir: /app
+    volumes:
+      - ./backend:/app/
+      - /app/node_modules
+      - ./frontend/public:/app/public
+    env_file:
+      - ./.env
+    # ports:
+    #   - "${BACKEND_PORT:-3000}:3000"
+    depends_on:
+      - db
+    networks:
+      - chatbot_network
+  
+  # 3. Python
+  llm:
+    restart: always
+    build:
+      context: ./llm
+      dockerfile: Dockerfile
+    working_dir: /app
+    volumes:
+      - ./llm:/app
+    env_file:
+      - ./.env
+    environment:
+      - PYTHONPATH=/app/app
+    # command: python /app/app/main.py
+    tty: true # 仮想端末を割り当て
+    stdin_open: true # 標準入力を開いたままにする
+    ports:
+      - "${LLM_PORT:-5000}:5000"
+    networks:
+      - chatbot_network
+  
+  # 4. Postgres
+  db:
+    image: postgres:15
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./backend/db/migrations/init.sql:/docker-entrypoint-initdb.d/init.sql
+    env_file:
+      - ./.env
+    ports:
+      - "${DB_PORT:-5432}:5432" # 本番ではポートは閉じる
+    networks:
+      - chatbot_network
+  
+networks:
+  chatbot_network:
+    driver: bridge
+
+volumes:
+  db_data:
