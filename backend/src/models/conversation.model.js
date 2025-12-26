@@ -92,3 +92,16 @@ export const findVisibleConversationsByUserId = async (userId) => {
     const result = await pool.query(sql, [userId]);
     return result.rows
 }
+
+/**
+ * 会話IDから特定の会話を取得する(所有権チェック)
+ */
+export const findById = async (id) => {
+    const sql = `
+        SELECT *
+        FROM conversations
+        WHERE id = $1;
+    `;
+    const result = await pool.query(sql, [id]);
+    return result.rows[0];
+}
