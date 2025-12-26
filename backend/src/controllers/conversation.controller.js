@@ -37,7 +37,7 @@ export const sendMessage = async (req, res, next) => {
 
 
         // 自作LLMにリクエストを送信
-        const llmResponse = await axios.post('http://llm:5000/generate', {
+        const llmResponse = await axios.post('http://llm:5000/api/v1/generate', {
             text: fullPrompt
         });
 
