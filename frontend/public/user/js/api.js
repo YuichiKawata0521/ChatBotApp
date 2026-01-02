@@ -37,3 +37,21 @@ export async function sendMessage(conversationId, message) {
     });
     return await response.json();
 }
+
+/**
+ * サーバー側で新しい会話（conversationsテーブルのレコード）を作成する
+ * @returns {Promise<object>} { success: true, newConversationId: { id, title, ... } }
+ */
+export async function startNewConversation() {
+    const url = '/api/v1/conversations';
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    if (!response.ok) {
+        throw new Error('新しい会話の開始に失敗しました');
+    }
+    return await response.json();
+}
