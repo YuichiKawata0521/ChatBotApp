@@ -1,4 +1,5 @@
 import { state as configState } from './config.js';
+import { escapeHTML } from '../../utils/sanitize.js';
 
 export function applyFrontText() {
     const text = configState.frontText;
@@ -81,9 +82,18 @@ export function initInputMessage() {
  * 入力欄のidを取得
  * @returns {HTMLElement} 
  */
-function getInputMessageId() {
+export function getInputMessageId() {
     return document.getElementById('inputMessage');
 }
+
+/**
+ * 送信ボタンのidを取得
+ * @returns {HTMLElement} 
+ */
+export function getSendBtnId() {
+    return document.getElementById('sendBtn');
+}
+
 
 /**
  * 入力欄を空白にする
@@ -102,4 +112,26 @@ function cleanInputMessage(input) {
 function adjustInputArea(input) {
     input.style.height = 'auto';
     input.style.height = `${Math.min(input.scrollHeight, 300)}px`;
+}
+
+// ========================================================================================================
+// チャット欄
+// ========================================================================================================
+export function addMessage(role, text) {
+    const chatMessages = document.querySelector('.chat-messages');
+
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${role}`;
+
+    const bubbleDiv = document.createElement('div');
+    bubbleDiv.className = 'message-bubble';
+
+    const p = document.createElement('p');
+    p.textContent = text;
+
+    bubbleDiv.appendChild(p);
+    messageDiv.appendChild(bubbleDiv);
+    chatMessages.appendChild(messageDiv);
+
+    messageDiv.scrollIntoView({ behavior: 'smooth' });
 }
