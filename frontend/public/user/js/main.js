@@ -34,12 +34,12 @@ async function sendMessage() {
     try {
         // 連打無効化
         messageInput.value = '';
-        sendButton.disable = true;
+        sendButton.disabled = true;
 
         // 新規会話の場合
         if (!currentConversationId) {
             const res = await api.startNewConversation();
-            currentConversationId = res.newConversationId;
+            currentConversationId = res.newConversationId.id;
 
             // URLを更新
             const newUrl = `${window.location.pathname}?id=${currentConversationId}`;
@@ -47,17 +47,27 @@ async function sendMessage() {
         }
 
         // ユーザーメッセージを描画
-        renderMessage('user', message);
+        ui.addMessage('user', message);
 
         // バックエンドへ送信
         const response = await api.sendMessage(currentConversationId, message);
+        
+        // ボットメッセージを描画
+        ui.addMessage('bot', response.reply);
 
-        renderMessage('bot', response.reply);
     } catch (error) {
         console.error('送信エラー', error.message);
     } finally {
-        sendButton.disabq = false;
+        sendButton.disabled = false;
     }
+}
+
+function sendMessageListener() {
+    const btn = ui.getSendBtnId();
+    btn.addEventListener('click', () => {
+        ui.hideWelcomeMessage();
+        sendMessage();
+    })
 }
 
 
@@ -65,4 +75,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     await getTexts(); // フロント文字列の取得
     await ui.applyFrontText(); // 取得した文字列をhtmlに適用
     startNewChatListner(); // 新しい会話ボタンのイベント
+    sendMessageListener();
 })
