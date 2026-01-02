@@ -22,3 +22,18 @@ export async function getFrontText() {
         throw new Error(`ファイルの形式が不正です(JSONパースエラー): ${parseError.message}`);
     }
 }
+
+/**
+ * メッセージを送信する(1-1)
+ */
+export async function sendMessage(conversationId, message) {
+    const url = `/api/v1/conversations/${conversationId}/messages`
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ message })
+    });
+    return await response.json();
+}
